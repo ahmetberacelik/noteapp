@@ -1,0 +1,78 @@
+{
+  "realm": "noteapp",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": true,
+  "privateKey": "MIIEowIBAAKCAQEAk3q8jGROpXK5oQVgbIxvJ5LDUYxW/jQR9MF5qzbdkfS/vv+4jTYZ5GOvUVtY8ZCG9eAFl5rnHAIyzflKVy10Y+TgwAX3JPlJKIzRu",
+  "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk3q8jGROpXK5oQVgbIxvJ5LDUYxW/jQR9MF5qzbdkfS/vv+4jTYZ5GOvUVtY8ZCG9eAFl5rnHA",
+  "clients": [
+    {
+      "clientId": "noteapp-client",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [
+        "*"
+      ],
+      "protocol": "openid-connect",
+      "directAccessGrantsEnabled": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "Regular user role"
+      },
+      {
+        "name": "admin",
+        "description": "Administrator role"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "user@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "user"
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "user",
+        "admin"
+      ]
+    }
+  ],
+  "defaultRoles": [
+    "user"
+  ]
+}

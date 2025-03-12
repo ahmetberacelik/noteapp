@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Console appender for standard output -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- File appender with daily log rotation -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/noteapp-client.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/noteapp-client-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- Asynchronous file appender for better performance -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE" />
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+    
+    <!-- Root logger configuration -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC" />
+    </root>
+    
+    <!-- Application specific loggers -->
+    <logger name="com.noteapp" level="DEBUG" />
+    <logger name="com.noteapp.client" level="DEBUG" />
+    <logger name="com.noteapp.auth" level="DEBUG" />
+    
+    <!-- Reduce unnecessary noise -->
+    <logger name="org.openjfx" level="WARN" />
+    <logger name="javafx" level="WARN" />
+    <logger name="javafx.fxml" level="WARN" />
+    <logger name="com.sun.javafx" level="WARN" />
+    
+    <!-- HTTP client logging (only for debug) -->
+    <logger name="jdk.internal.httpclient.debug" level="INFO" />
+    <logger name="jdk.internal.httpclient.wire.header" level="INFO" />
+    <logger name="jdk.internal.httpclient.wire.content" level="INFO" />
+    
+    <!-- Error handler for JavaFX thread errors -->
+    <logger name="javafx.application.Application" level="INFO" />
+    <logger name="javafx.application.Platform" level="WARN" />
+    
+    <!-- For unexpected errors, use ERROR level to ensure they are logged -->
+    <logger name="java.lang.Thread.UncaughtExceptionHandler" level="ERROR" />
+</configuration>

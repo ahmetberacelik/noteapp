@@ -3,8 +3,14 @@
   "enabled": true,
   "sslRequired": "external",
   "registrationAllowed": true,
-  "privateKey": "MIIEowIBAAKCAQEAk3q8jGROpXK5oQVgbIxvJ5LDUYxW/jQR9MF5qzbdkfS/vv+4jTYZ5GOvUVtY8ZCG9eAFl5rnHAIyzflKVy10Y+TgwAX3JPlJKIzRu",
-  "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk3q8jGROpXK5oQVgbIxvJ5LDUYxW/jQR9MF5qzbdkfS/vv+4jTYZ5GOvUVtY8ZCG9eAFl5rnHA",
+  "accessTokenLifespan": 300,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "offlineSessionIdleTimeout": 2592000,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
   "clients": [
     {
       "clientId": "noteapp-client",
@@ -18,7 +24,12 @@
         "*"
       ],
       "protocol": "openid-connect",
-      "directAccessGrantsEnabled": true
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "attributes": {
+        "backchannel.logout.session.required": "true"
+      }
     }
   ],
   "roles": {
@@ -33,6 +44,9 @@
       }
     ]
   },
+  "defaultRoles": [
+    "user"
+  ],
   "users": [
     {
       "username": "user",
@@ -50,7 +64,8 @@
       ],
       "realmRoles": [
         "user"
-      ]
+      ],
+      "requiredActions": []
     },
     {
       "username": "admin",
@@ -69,10 +84,19 @@
       "realmRoles": [
         "user",
         "admin"
-      ]
+      ],
+      "requiredActions": []
     }
   ],
-  "defaultRoles": [
-    "user"
-  ]
+  "browserFlow": "browser",
+  "registrationFlow": "registration",
+  "directGrantFlow": "direct grant",
+  "resetCredentialsFlow": "reset credentials",
+  "clientAuthenticationFlow": "clients",
+  "eventsEnabled": false,
+  "eventsListeners": [
+    "jboss-logging"
+  ],
+  "adminEventsEnabled": false,
+  "adminEventsDetailsEnabled": false
 }
